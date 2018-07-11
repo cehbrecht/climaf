@@ -16,7 +16,7 @@ Example for a CMIP5 dataset declaration ::
 import os
 from climaf.dataloc import dataloc
 from climaf.classes import cproject, calias, cfreqs,cdef
-from climaf.site_settings import atCNRM, onCiclad
+from climaf.site_settings import atCNRM, onCiclad, atCEDA
 
 p=cproject("CMIP5" ,"model","experiment", ("frequency","monthly"),
            ("table","*"),("realm","*"),("version","last"),
@@ -34,6 +34,8 @@ if atCNRM :
 if onCiclad :
     # Declare a list of root directories for CMIP5 data on IPLS's Ciclad file system
     urls_CMIP5=["/prodigfs/project/"]
+if atCEDA:
+    urls_CMIP5=["/badc/cmip5/data"]
 
 if urls_CMIP5 :
     # Next command will lead to explore all directories in 'url' 

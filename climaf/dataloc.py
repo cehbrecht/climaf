@@ -626,7 +626,7 @@ def selectCmip5DrsFiles(urls, **kwargs) :
     #
     # If version is 'last', tries provide version from directory 'last' if available,
     # otherwise those of last dir
-    project=kwargs['project']
+    _project=kwargs['project']
     model=kwargs['model']
     simulation=kwargs['simulation']
     frequency=kwargs['frequency']
@@ -643,6 +643,7 @@ def selectCmip5DrsFiles(urls, **kwargs) :
     if frequency in frequency2drs : freqd=frequency2drs[frequency]
     # TBD : analyze ambiguity of variable among realms+tables
     for l in urls :
+      for project in (_project.lower(), _project.upper()):
         totry=['merge/','output/','output?/','main/','']
         for p in totry :
             pattern1=l+"/"+project+"/"+p+"*/"+model # one * for modelling center

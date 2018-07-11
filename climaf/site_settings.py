@@ -14,6 +14,7 @@ onAda    = False
 onErgon  = False
 atIDRIS  = False
 onSpip   = False
+atCEDA   = False
 
 HostName = os.uname()[1].strip().lower()
 Home    = os.getenv ('HOME')
@@ -41,5 +42,7 @@ if 'Spip' in HostName or 'lsce3005' in HostName or 'lsce3072' in HostName or os.
     VolumesDir = os.getenv ('VolumesDir')
 if os.path.exists('/data8/datamg/') :
     atCerfacs=True
+if os.path.exists('/badc'):
+    atCEDA = True
 
-    
+ 
