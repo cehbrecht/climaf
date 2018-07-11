@@ -55,4 +55,4 @@ def create_global_mean_ts_plot(model, experiment, start_year, end_year, variable
 
 if __name__ == '__main__':
 
-    create_global_mean_ts_plot('HadGEM2-ES', 'rcp45', 2000, 2100, 'tas', 'output.png')
+    create_global_mean_ts_plot('HadGEM2-ES', 'rcp45', 2010, 2020, 'tas', 'output.png')
