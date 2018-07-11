@@ -34,9 +34,10 @@ setup(name='climaf',
       packages=find_packages(),
       include_package_data=True,
       install_requires=requires,
-      entry_points={
-          'console_scripts': []},
       scripts=[
+          'bin/climaf',
+          'bin/exiv2',
+          'bin/pdfcrop',
           'scripts/cdfsections.sh',
           'scripts/cdfsectionsm.sh',
           'scripts/cdftransp.sh',

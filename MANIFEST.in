@@ -1,5 +1,7 @@
 include *.rst
 include *.txt
 graft climaf
+graft bin
+graft scripts
 global-exclude __pycache__
 global-exclude *.py[co]
