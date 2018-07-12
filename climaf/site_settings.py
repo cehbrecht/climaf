@@ -15,6 +15,7 @@ onErgon  = False
 atIDRIS  = False
 onSpip   = False
 atCEDA   = False
+atDKRZ   = False
 
 HostName = os.uname()[1].strip().lower()
 Home    = os.getenv ('HOME')
@@ -44,5 +45,5 @@ if os.path.exists('/data8/datamg/') :
     atCerfacs=True
 if os.path.exists('/badc'):
     atCEDA = True
-
- 
+if os.path.exists('/mnt/lustre01/work'):
+    atDKRZ = True

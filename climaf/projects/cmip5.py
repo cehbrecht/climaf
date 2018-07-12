@@ -16,7 +16,7 @@ Example for a CMIP5 dataset declaration ::
 import os
 from climaf.dataloc import dataloc
 from climaf.classes import cproject, calias, cfreqs,cdef
-from climaf.site_settings import atCNRM, onCiclad, atCEDA
+from climaf.site_settings import atCNRM, onCiclad, atCEDA, atDKRZ
 
 p=cproject("CMIP5" ,"model","experiment", ("frequency","monthly"),
            ("table","*"),("realm","*"),("version","last"),
@@ -36,9 +36,11 @@ if onCiclad :
     urls_CMIP5=["/prodigfs/project/"]
 if atCEDA:
     urls_CMIP5=["/badc/cmip5/data"]
+if atDKRZ:
+    urls_CMIP5=["/mnt/lustre01/work/kd0956/CMIP5/data"]
 
 if urls_CMIP5 :
-    # Next command will lead to explore all directories in 'url' 
-    # for searching data for a CliMAF dataset (by function ds) except if 
+    # Next command will lead to explore all directories in 'url'
+    # for searching data for a CliMAF dataset (by function ds) except if
     # a more specific dataloc entry matches the arguments to 'ds'
     dataloc(project="CMIP5", organization="CMIP5_DRS", url=urls_CMIP5)
