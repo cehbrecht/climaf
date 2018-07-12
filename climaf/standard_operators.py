@@ -9,7 +9,7 @@ from climaf.operators import cscript, fixed_fields
 from climaf.clogging import clogger
 from climaf.site_settings import onCiclad
 
-scriptpath = ''  # cpath[0]+"/../scripts/"
+scriptpath = os.path.join(cpath[0], "scripts") + os.path.sep
 binpath = ''  # cpath[0]+"/../bin/"
 
 def load_standard_operators():
