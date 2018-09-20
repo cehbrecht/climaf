@@ -22,7 +22,7 @@ units=$1 ; shift
 vm=$1 ; shift
 
 #tmp=$(mktemp -d --tmpdir climaf_mcdo_XXXXXX) # Will use TMPDIR if set, else /tmp
-tmp=$(mktemp -t -d climaf_mcdo_XXXXXX) # Option --tmpdir is not available at all sites
+tmp=$(mktemp -d /tmp/climaf_mcdo_XXXXXX) # Option --tmpdir is not available at all sites
 
 
 clim_timefix ()
