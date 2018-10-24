@@ -12,13 +12,14 @@ long_description = (
 requires = [line.strip() for line in open('requirements.txt')]
 
 classifiers = [
-    'Development Status :: 3 - Alpha',
+    'Development Status :: 4 - Beta',
     'Intended Audience :: Science/Research',
     'Operating System :: MacOS :: MacOS X',
     'Operating System :: Microsoft :: Windows',
     'Operating System :: POSIX',
     'Programming Language :: Python',
     'Topic :: Scientific/Engineering :: Atmospheric Science',
+    # 'License :: CeCILL-C Free Software License Agreement (CECILL-C)'
 ]
 
 setup(name='climaf',
@@ -37,5 +38,31 @@ setup(name='climaf',
       scripts=[
           'bin/climaf',
           'bin/exiv2',
-          'bin/pdfcrop', ],
-      )
+          'bin/pdfcrop',
+          'scripts/cdfsectionsm.sh',
+          'scripts/cdfsections.sh',
+          'scripts/cdftransport.sh',
+          'scripts/cdftransp.sh',
+          'scripts/clean_pdf.sh',
+          'scripts/curl_tau_atm.jnl',
+          'scripts/curves.ncl',
+          'scripts/ensemble_time_series_plot.py',
+          'scripts/gplot.ncl',
+          'scripts/hovmoller.ncl',
+          'scripts/ks.sh',
+          'scripts/LinearRegression_UVCDAT.py',
+          'scripts/mcdo_remote.py',
+          'scripts/mcdo.sh',
+          'scripts/mcdo_aux.sh',
+          'scripts/mean_and_std.sh',
+          'scripts/ml2pl.sh',
+          'scripts/ml2pl',
+          'scripts/mtimavg.sh',
+          'scripts/plot_cross_section.ncl',
+          'scripts/plotmap.ncl',
+          'scripts/read_ncks.sh',
+          'scripts/regridll.sh',
+          'scripts/regrid.sh',
+          'scripts/time_average_basics.sh',
+          'scripts/wcdo.sh',
+      ],)

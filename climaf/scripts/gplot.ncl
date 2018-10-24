@@ -865,7 +865,7 @@ begin
 
   controlMinMax= isvar("vmin") .and. isvar("vmax") .and. isvar("vdelta")
   if ( controlMinMax ) then      
-    power10=floattoint(log10(dim_max(ndtooned(fld))))
+    power10=floattoint(log10(dim_max(ndtooned(tofloat(fld)))))
     if ismissing(power10) then 
       print("Field has only missing values" )
       power10=1
@@ -1189,10 +1189,9 @@ begin
       res@cnMaxLevelValF = vmax
       res@cnLevelSpacingF = vdelta
     end if
-    if ( isvar("colors") ) then
+    if ( isvar("ccolors") ) then
       res@cnLevelSelectionMode = "ExplicitLevels"
-      res@cnLevels=tofloat(str_split(colors," "))
-      delete(colors)
+      res@cnLevels=tofloat(str_split(ccolors," "))
     end if 
 
     res@cnLinesOn=False

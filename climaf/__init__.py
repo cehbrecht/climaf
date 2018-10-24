@@ -7,9 +7,10 @@ from __future__ import print_function
 # Created : S.Senesi - 2014
 
 __all__=[ "site_settings", "cache", "classes", "clogging", "dataloc", "driver", "netcdfbasics",
-          "operators", "period", "standard_operators", "projects", "cmacro", "html", "functions", "plot" ]
+          "operators", "period", "standard_operators", "cmacro", "html", "functions", "plot",
+          "projects", "derived_variables" ]
 
-version="1.1"
+version="1.2.4"
 
 import time,os, os.path
 
@@ -33,8 +34,10 @@ if (os.system("type xdg-open >/dev/null 2>&1")== 0) :
 already_inited=False
 onrtd = os.environ.get('READTHEDOCS', None) == 'True'
 
+
 if not already_inited  and not onrtd : 
     import sys
+    from climaf.driver import logdir
     #
     already_inited=True
     #
@@ -43,10 +46,9 @@ if not already_inited  and not onrtd :
     tim("atexit")
     #
     import clogging, site_settings, cache, standard_operators, cmacro, operators
-    from driver import logdir
     tim("imports")
     print("Climaf version = "+version,file=sys.stderr)
-    driver.logdir=os.path.expanduser(os.getenv("CLIMAF_LOG_DIR","."))
+    logdir=os.path.expanduser(os.getenv("CLIMAF_LOG_DIR","."))
     #
     # Set default logging levels
     clogging.logdir=os.path.expanduser(os.getenv("CLIMAF_LOG_DIR","."))
@@ -67,7 +69,6 @@ if not already_inited  and not onrtd :
     print ("Cache directory for remote data set to : "+remote_cachedir+" (use $CLIMAF_REMOTE_CACHE if set) ",file=sys.stderr)
     #
     # Init dynamic CliMAF operators, and import projects and some funcs in main
-    exec("from climaf.projects  import *") in sys.modules['__main__'].__dict__
     tim("execs_projects")
     exec("from climaf.classes   import ds, eds, cens, fds") in sys.modules['__main__'].__dict__
     tim("execs_classes")
@@ -75,6 +76,7 @@ if not already_inited  and not onrtd :
     tim("execs_cscript")
     standard_operators.load_standard_operators()
     tim("load_ops")
+    exec("from climaf.projects  import *") in sys.modules['__main__'].__dict__
     #
     # Read and execute user config file
     conf_file=os.path.expanduser("~/.climaf")

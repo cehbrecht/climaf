@@ -24,6 +24,9 @@ aliases=dict()
 #: Dictionary of frequency names dictionaries
 frequencies=dict()
 
+#: Dictionary of realms names dictionaries
+realms = dict()
+
 class cproject():
     def __init__(self,name,  *args, **kwargs) :
         """
@@ -242,18 +245,25 @@ def processDatasetArgs(**kwargs) :
             else : listval=[val]
             for lval in listval :
                 if isinstance(lval,str) and lval.find(sep) >= 0 :
-                    Climaf_Classes_Error(
+                    raise Climaf_Classes_Error(
                         "You cannot use character '%s' when setting '%s=%s' because "
                         "it is the declared separator for project '%s'. "
                         "See help(cproject) for changing it, if needed"%(sep,facet,val,project))
             #print "initalizing facet %s with value"%(facet,val)
-    # Special processing for CMIP5 fixed fields : handling redundancy in facets
     if (attval['project'] == 'CMIP5'):
+        # Allow for a synonym for 'simulation' in CMIP5 : 'member'
+        if 'member' in kwargs and kwargs['member'] not in [None, '']:
+            attval['simulation']=kwargs['member']
+            clogger.info('Attribute "member" in project CMIP5 has been translated to "simulation"')
+        # Special processing for CMIP5 fixed fields : handling redundancy in facets
         if ( attval['table']=='fx' or attval['period']=='fx' or 
              attval['simulation']=='r0i0p0' or attval['frequency']=='fx') :
             attval['table']='fx' ; attval['period']='fx' 
             attval['simulation']='r0i0p0' ; attval['frequency']='fx'
-    #
+    # Special processing for CMIP6  : facet 'simulation' is forbidden (must use 'realization')
+    if (attval['project'] == 'CMIP6')  and 'simulation' in kwargs and kwargs['simulation'] is not '':
+        raise Climaf_Classes_Error("You cannot use attribute 'simulation' in CMIP6; please use 'realization'. This if for kwargs=%s"%`kwargs`)
+    
     errmsg=""
     for facet in cprojects[project].facets :
         if attval[facet] is None :
@@ -264,6 +274,7 @@ def processDatasetArgs(**kwargs) :
     #
     #print "kw="+`kwargs`
     for facet in attval :
+        #print "checking facet %s"%facet
         # Facet specific processing
         if facet=='period' :
             if not isinstance(attval['period'],cperiod) :
@@ -271,11 +282,6 @@ def processDatasetArgs(**kwargs) :
                     attval['period']=init_period(attval['period'])
                 except :
                     raise Climaf_Classes_Error("Cannot interpret period for %s"%`attval['period']`)
-            #else :
-            #    print "%s is a cperiod"%`attval['period']`
-        #elif facet=='domain' and not type(attval['domain']) is str :
-        #    # May be a list
-        #    attval['domain']=eval(attval['domain'])
         # Check for typing or user's logic errors
         if not facet in cprojects[project].facets :
             e="Project %s doesn't have facet %s"%(project,facet)
@@ -390,7 +396,10 @@ class cdataset(cobject):
         return rep
 
     def isLocal(self) :
-        return self.baseFiles().find(":")<0
+        #return self.baseFiles().find(":")<0
+        model=getattr(self,"model","*")
+        return(dataloc.isLocal(project=self.project, model=model, \
+                               simulation=self.simulation, frequency=self.frequency))
         
     def isCached(self) :
         """ TBD : analyze if a remote dataset is locally cached
@@ -1131,6 +1140,26 @@ def cfreqs(project,dic) :
     """
     #
     frequencies[project]=dic
+
+
+def crealms(project,dic) :
+    """
+    Allow to declare a dictionary specific to ``project`` for matching
+    ``normalized`` realm names to project-specific realm names
+
+    Normalized realm names are :
+      atmos, ocean, land, seaice
+
+    When defining a dataset, any reference to a non-standard
+    realm will be left unchanged both in the datset's CRS and
+    when trying to access corresponding datafiles
+
+    Examples::
+
+    >>> crealms('CMIP5',{'atmos':'ATM' , 'ocean':'OCE' })
+    """
+    #
+    realms[project]=dic
 
 
 def calias(project,variable,fileVariable=None,scale=1.,offset=0.,units=None,missing=None,filenameVar=None) :
