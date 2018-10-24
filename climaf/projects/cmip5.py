@@ -35,10 +35,10 @@ if atCNRM :
 if onCiclad :
     # Declare a list of root directories for CMIP5 data on IPLS's Ciclad file system
     urls_CMIP5=["/prodigfs/project/"]
-if atCEDA:
-    urls_CMIP5=["/badc/cmip5/data"]
-if atDKRZ:
-    urls_CMIP5=["/mnt/lustre01/work/kd0956/CMIP5/data"]
+# if atCEDA:
+#     urls_CMIP5=["/badc/cmip5/data"]
+# if atDKRZ:
+#     urls_CMIP5=["/mnt/lustre01/work/kd0956/CMIP5/data"]
 
 if urls_CMIP5 :
     # Next command will lead to explore all directories in 'url'
