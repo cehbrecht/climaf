@@ -14,8 +14,8 @@ onAda    = False
 onErgon  = False
 atIDRIS  = False
 onSpip   = False
-atCEDA   = False
-atDKRZ   = False
+# atCEDA   = False
+# atDKRZ   = False
 
 HostName = os.uname()[1].strip().lower()
 Home    = os.getenv ('HOME')
@@ -36,14 +36,14 @@ if 'ada' in HostName        :
 if 'ergon' in HostName      :
     onErgon  = True   ; atIDRIS = True
     atIPSL   = True
-if 'Spip' in HostName or 'lsce3005' in HostName or 'lsce3072' in HostName or os.path.exists(Home+'/.spip') :
-    onSpip = True
-    atIPSL   = True
-    print 'Spip trouve'
-    VolumesDir = os.getenv ('VolumesDir')
+# if 'Spip' in HostName or 'lsce3005' in HostName or 'lsce3072' in HostName or os.path.exists(Home+'/.spip') :
+#     onSpip = True
+#     atIPSL   = True
+#     print 'Spip trouve'
+#     VolumesDir = os.getenv ('VolumesDir')
 if os.path.exists('/data8/datamg/') :
     atCerfacs=True
-if os.path.exists('/badc'):
-    atCEDA = True
-if os.path.exists('/mnt/lustre01/work'):
-    atDKRZ = True
+# if os.path.exists('/badc'):
+#     atCEDA = True
+# if os.path.exists('/mnt/lustre01/work'):
+#     atDKRZ = True
