@@ -18,3 +18,7 @@ examples/romain/
 /lmdz/
 /doc/_static/
 /testing/last.out
+# python build
+build/
+*.egg-info
+dist/
